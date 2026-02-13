@@ -1,0 +1,992 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Trip Planner - Explore Your Next Adventure</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm" id="mainNav">
+		<div class="container-fluid px-3 px-lg-5">
+			<a class="navbar-brand d-flex align-items-center fw-bold fs-5" href="#">
+				<i class="bi bi-airplane-fill text-primary me-2" style="font-size: 1.5rem;"></i>
+				<span>Trip Planner</span>
+			</a>
+			<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navCollapse" aria-controls="#navCollapse" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navCollapse">
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="packagesDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-box-seam"></i> Packages
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="packagesDropdown">
+							<li><a class="dropdown-item" href="#packages-india"><i class="bi bi-geo-fill"></i> 🇮🇳
+									India Packages</a></li>
+							<li><a class="dropdown-item" href="#packages-international"><i class="bi bi-globe"></i> 🌍
+									International Packages</a></li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#bookings"><i class="bi bi-calendar-check"></i> My Bookings <span
+								class="badge bg-primary ms-1" id="bookingsCount">0</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="destination.html"><i class="bi bi-geo-alt"></i> Destinations</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#about"><i class="bi bi-info-circle"></i> About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#contact"><i class="bi bi-envelope"></i> Contact</a>
+					</li>
+				<li class="nav-item ms-lg-2">
+					<button class="btn btn-outline-primary btn-sm" id="authBtn">Login / Sign Up</button>
+				</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Hero Section with Auto-Sliding Carousel -->
+	<section id="hero" class="hero-section">
+		<div id="heroCarousel" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="5000">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"
+					aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner h-100">
+				<div class="carousel-item active h-100" img src="img/header-bg.jpg">
+					<div class="carousel-overlay"></div>
+					<div class="hero-content">
+						<h1 style="font-size: 56px; font-weight: bold;">Discover Your Next Adventure</h1>
+						<p style="font-size: 22px; margin-bottom: 30px;">Explore breathtaking destinations and create
+							unforgettable memories</p>
+						<a href="#packages" class="btn btn-light btn-lg"
+							style="font-size: 18px; padding: 12px 40px;">Explore Packages</a>
+					</div>
+				</div>
+				<div class="carousel-item h-100"
+					style="background: url('https://images.unsplash.com/photo-1515238152791-de8242ad23f7?w=1200&h=600&fit=crop') center/cover no-repeat;">
+					<div class="carousel-overlay"></div>
+					<div class="hero-content">
+						<h1 style="font-size: 56px; font-weight: bold;">Luxury Travel Experiences</h1>
+						<p style="font-size: 22px; margin-bottom: 30px;">Experience world-class accommodations and
+							personalized service</p>
+						<a href="#packages" class="btn btn-light btn-lg"
+							style="font-size: 18px; padding: 12px 40px;">View Premium Packages</a>
+					</div>
+				</div>
+				<div class="carousel-item h-100"
+					style="background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop') center/cover no-repeat;">
+					<div class="carousel-overlay"></div>
+					<div class="hero-content">
+						<h1 style="font-size: 56px; font-weight: bold;">Budget-Friendly Getaways</h1>
+						<p style="font-size: 22px; margin-bottom: 30px;">Travel more for less with our exclusive deals
+							and offers</p>
+						<a href="#packages" class="btn btn-light btn-lg"
+							style="font-size: 18px; padding: 12px 40px;">Find Amazing Deals</a>
+					</div>
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+	</section>
+
+	<main class="container-fluid">
+		<div class="container py-5">
+			<!-- INDIA PACKAGES SECTION -->
+			<section id="packages-india" class="mb-5 pb-5">
+				<div class="text-center mb-5">
+					<h2 class="display-5 fw-bold mb-3" style="color: darkslategray;">🇮🇳 India Packages</h2>
+					<p class="lead text-muted">Explore the beauty of India with our curated packages</p>
+				</div>
+				<div class="row g-4" id="packagesIndia">
+					<!-- Package 1: Goa Beach Paradise -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/Goa.png" class="card-img-top" alt="Goa Beach Paradise">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🏖️ Goa Beach Paradise</h5>
+								<p class="card-text text-muted flex-grow-1">Experience pristine beaches, water sports,
+									and vibrant nightlife in beautiful Goa with 4-star accommodation.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">7 Days/6 Nights</span>
+									<span class="badge bg-success">Beach</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 9,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book" data-package="Goa Beach Paradise"
+										data-price="29950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 2: Kerala Backwaters -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/kerla.png" class="card-img-top" alt="Kerala Backwaters">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold"> Kerala Backwaters Tour</h5>
+								<p class="card-text text-muted flex-grow-1">Cruise through serene backwaters, explore
+									houseboats, spice plantations, and enjoy authentic Kerala cuisine.</p>
+								<div class="mb-3">
+									<span class="badge bg-danger">6 Days/ 7 Nights</span>
+									<span class="badge bg-success">Nature</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 5,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Kerala Backwaters Tour" data-price="34950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 3: Taj Mahal & Delhi Tour -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/Tajmahel.png" class="card-img-top" alt="Taj Mahal Delhi">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🏛️ Taj Mahal & Delhi Heritage</h5>
+								<p class="card-text text-muted flex-grow-1">Visit the iconic Taj Mahal, explore Delhi's
+									historical monuments, temples, and experience rich Indian culture.</p>
+								<div class="mb-3">
+									<span class="badge bg-warning">4 Days/ 3 Nights</span>
+									<span class="badge bg-info">Culture</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 5,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Taj Mahal & Delhi Heritage" data-price="24950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 4: Rajasthan Desert Adventure -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/raj.png.jpg" class="card-img-top" alt="Rajasthan Desert">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🏜️ Rajasthan Desert Adventure</h5>
+								<p class="card-text text-muted flex-grow-1">Camel safaris in the golden desert, visit
+									majestic palaces and forts with authentic Rajasthani hospitality.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">7 Days</span>
+									<span class="badge bg-danger">Adventure</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 39,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Rajasthan Desert Adventure" data-price="39950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 5: Himalayan Trek -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/himalay.png.jpg" class="card-img-top" alt="Himalayan Trek">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">⛰️ Himalayan Trek & Adventure</h5>
+								<p class="card-text text-muted flex-grow-1">Challenge yourself with mountain trekking,
+									explore alpine meadows, pristine forests, and breathtaking views.</p>
+								<div class="mb-3">
+									<span class="badge bg-warning">9 Days</span>
+									<span class="badge bg-danger">Extreme</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 49,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Himalayan Trek & Adventure" data-price="49950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 6: Jaipur Pink City -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/ladhakh.jpg" class="card-img-top" alt="Jaipur">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🏰 Jaipur Pink City Tour</h5>
+								<p class="card-text text-muted flex-grow-1">City Palace, Hawa Mahal, local bazaars, and
+									royal Rajasthani culture with heritage walks.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">3 Days</span>
+									<span class="badge bg-info">Culture</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 19,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book" data-package="Jaipur Pink City Tour"
+										data-price="19950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 7: Ladakh High Altitude -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/ladhakh.jpg" class="card-img-top" alt="Ladakh">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">⛏️ Ladakh High Altitude Adventure</h5>
+								<p class="card-text text-muted flex-grow-1">Pangong Lake, Leh-Manali highway, Buddhist
+									monasteries, and pristine mountain wilderness.</p>
+								<div class="mb-3">
+									<span class="badge bg-warning">7 Days</span>
+									<span class="badge bg-danger">Extreme</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 54,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Ladakh High Altitude Adventure" data-price="54950">Book
+										Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 8: Varanasi Spiritual -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/varansani.jpg" class="card-img-top" alt="Varanasi">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🕉️ Varanasi Spiritual Journey</h5>
+								<p class="card-text text-muted flex-grow-1">Ganges Aarti ceremonies, ancient temples,
+									spiritual awakening, and authentic Indian spirituality.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">4 Days</span>
+									<span class="badge bg-success">Spiritual</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 21,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Varanasi Spiritual Journey" data-price="21950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 9: Andaman Islands -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/Andman.jpg" class="card-img-top" alt="Andaman">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🏝️ Andaman Island Paradise</h5>
+								<p class="card-text text-muted flex-grow-1">Scuba diving, coral reefs, white sandy
+									beaches, island hopping, and water sports paradise.</p>
+								<div class="mb-3">
+									<span class="badge bg-danger">5 Days</span>
+									<span class="badge bg-info">Beach</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 44,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Andaman Island Paradise" data-price="44950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 10: Darjeeling Tea Gardens -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/Darjilling.jpg" class="card-img-top" alt="Darjeeling">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🍵 Darjeeling Tea Gardens</h5>
+								<p class="card-text text-muted flex-grow-1">Visit famous tea gardens, Kanchenjunga
+									views, toy train ride, and misty mountain landscapes.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">4 Days</span>
+									<span class="badge bg-success">Nature</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 26,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Darjeeling Tea Gardens" data-price="26950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- INTERNATIONAL PACKAGES SECTION -->
+			<section id="packages-international" class="mb-5 pb-5">
+				<div class="text-center mb-5">
+					<h2 class="display-5 fw-bold mb-3" style="color: darkslategray;">🌍 International Packages</h2>
+					<p class="lead text-muted">Discover the world with our international travel packages</p>
+				</div>
+				<div class="row g-4" id="packagesInternational">
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/Thaileand.jpg" class="card-img-top" alt="Thailand Adventure">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇹🇭 Thailand Tropical Paradise</h5>
+								<p class="card-text text-muted flex-grow-1">Island hopping in Phuket, Bangkok temples,
+									and enjoy Thai cuisine. All-inclusive beach resort experience.</p>
+								<div class="mb-3">
+									<span class="badge bg-danger">7 Days</span>
+									<span class="badge bg-success">Beach</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 54,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Thailand Tropical Paradise" data-price="54950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 7: Bali Paradise -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/Bali.jpg" class="card-img-top" alt="Bali Paradise">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇮🇩 Bali Luxury Escape</h5>
+								<p class="card-text text-muted flex-grow-1">Luxury resorts in Seminyak, temple visits,
+									rice terraces, yoga retreats, and pristine beaches in Bali.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">6 Days</span>
+									<span class="badge bg-danger">Luxury</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 64,950</strong>
+										<span class="text-muted small d-block">/couple</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book" data-package="Bali Luxury Escape"
+										data-price="64950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 8: Japan Cultural Tour -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/japan.jpg" class="card-img-top" alt="Japan Cultural">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇯🇵 Japan Cultural Immersion</h5>
+								<p class="card-text text-muted flex-grow-1">Tokyo, Kyoto temples, Mount Fuji views,
+									traditional tea ceremonies, and authentic Japanese hospitality.</p>
+								<div class="mb-3">
+									<span class="badge bg-warning">10 Days</span>
+									<span class="badge bg-info">Culture</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 79,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Japan Cultural Immersion" data-price="79950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 9: Singapore City Tour -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/singapore.jpg" class="card-img-top" alt="Singapore">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇸🇬 Singapore City Explorer</h5>
+								<p class="card-text text-muted flex-grow-1">Marina Bay Sands, Gardens by the Bay,
+									shopping districts, diverse cuisines, and modern Asian architecture.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">4 Days</span>
+									<span class="badge bg-success">Urban</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 44,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Singapore City Explorer" data-price="44950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 10: Switzerland Alpine -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/switzerland.jpg" class="card-img-top" alt="Switzerland">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇨🇭 Switzerland Alpine Retreat</h5>
+								<p class="card-text text-muted flex-grow-1">Swiss Alps, cable cars, scenic trains,
+									Interlaken adventure sports, and luxury accommodation.</p>
+								<div class="mb-3">
+									<span class="badge bg-danger">8 Days</span>
+									<span class="badge bg-danger">Luxury</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 89,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Switzerland Alpine Retreat" data-price="89950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- MORE INTERNATIONAL PACKAGES -->
+					<!-- Package 16: Paris Romance -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/paris.jpg" class="card-img-top" alt="Paris">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇫🇷 Paris Romance City Tour</h5>
+								<p class="card-text text-muted flex-grow-1">Eiffel Tower, Louvre museum, Seine river
+									cruises, cafes, and romantic Parisian charm.</p>
+								<div class="mb-3">
+									<span class="badge bg-danger">6 Days</span>
+									<span class="badge bg-danger">Luxury</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 74,950</strong>
+										<span class="text-muted small d-block">/couple</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Paris Romance City Tour" data-price="74950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 17: Dubai Desert -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/Dubai.jpg" class="card-img-top" alt="Dubai">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇦🇪 Dubai Desert & City Tour</h5>
+								<p class="card-text text-muted flex-grow-1">Dubai Marina, desert safaris, shopping
+									malls, Burj Khalifa, and luxury Arabian experiences.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">5 Days</span>
+									<span class="badge bg-danger">Luxury</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 59,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Dubai Desert & City Tour" data-price="59950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 18: Greece Islands -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/Greenisleand.jpg" class="card-img-top" alt="Greece">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇬🇷 Greece Island Hopping</h5>
+								<p class="card-text text-muted flex-grow-1">Santorini sunsets, Mykonos beaches, Athens
+									ruins, and Mediterranean island paradise.</p>
+								<div class="mb-3">
+									<span class="badge bg-warning">8 Days</span>
+									<span class="badge bg-info">Beach</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 69,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book" data-package="Greece Island Hopping"
+										data-price="69950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 19: Egypt Historical -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/Egypt.jpg" class="card-img-top" alt="Egypt">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇪🇬 Egypt Historical Adventure</h5>
+								<p class="card-text text-muted flex-grow-1">Pyramids, Sphinx, Nile river cruise, ancient
+									temples, and 5000 years of history.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">7 Days</span>
+									<span class="badge bg-info">Culture</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 64,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Egypt Historical Adventure" data-price="64950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 20: Canada Arctic -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/canada.jpg" class="card-img-top" alt="Canada">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇨🇦 Canada Arctic & Mountains</h5>
+								<p class="card-text text-muted flex-grow-1">Niagara Falls, Rocky Mountains, bear
+									watching, national parks, and northern lights.</p>
+								<div class="mb-3">
+									<span class="badge bg-danger">10 Days</span>
+									<span class="badge bg-danger">Adventure</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 79,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Canada Arctic & Mountains" data-price="79950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 21: New Zealand Adventure -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/newzeland.jpg" class="card-img-top" alt="New Zealand">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇳🇿 New Zealand Adventure</h5>
+								<p class="card-text text-muted flex-grow-1">Bungy jumping, Milford Sound, adventure
+									sports, stunning fjords, and thermal springs.</p>
+								<div class="mb-3">
+									<span class="badge bg-warning">9 Days</span>
+									<span class="badge bg-danger">Adventure</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 84,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book" data-package="New Zealand Adventure"
+										data-price="84950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 22: Australia Outback -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/austrilia.jpg" class="card-img-top" alt="Australia">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇦🇺 Australia Outback Safari</h5>
+								<p class="card-text text-muted flex-grow-1">Uluru, Great Barrier Reef, Sydney Opera
+									House, wildlife encounters, and outback adventures.</p>
+								<div class="mb-3">
+									<span class="badge bg-info">9 Days</span>
+									<span class="badge bg-success">Safari</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 89,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Australia Outback Safari" data-price="89950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Package 23: Italy Roman Tour -->
+					<div class="col-12 col-sm-6 col-lg-4">
+						<div class="card h-100 shadow-sm package-card overflow-hidden">
+							<img src="img/itlya.jpg" class="card-img-top" alt="Italy">
+							<div class="card-body d-flex flex-column">
+								<h5 class="card-title fw-bold">🇮🇹 Italy Ancient Roman Tour</h5>
+								<p class="card-text text-muted flex-grow-1">Rome Colosseum, Venice gondolas, Florence
+									art, Tuscany vineyards, and Italian cuisine.</p>
+								<div class="mb-3">
+									<span class="badge bg-warning">8 Days</span>
+									<span class="badge bg-info">Culture</span>
+								</div>
+								<div class="mt-auto d-flex justify-content-between align-items-center flex-wrap gap-2">
+									<div>
+										<strong class="text-primary fs-5">₹ 72,950</strong>
+										<span class="text-muted small d-block">/person</span>
+									</div>
+									<button class="btn btn-primary btn-sm btn-book"
+										data-package="Italy Ancient Roman Tour" data-price="72950">Book Now</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		</div>
+		</section>
+
+
+		<section id="destinations" class="mb-5 py-5 bg-light rounded-3">
+			<div class="text-center mb-5">
+				<h2 class="display-5 fw-bold mb-3">🌐 Popular Destinations</h2>
+				<p class="lead text-muted">Explore our handpicked destinations around the world</p>
+			</div>
+			<div class="row g-3 mb-4">
+				<div class="col-12 col-md-4">
+					<div class="card border-0 shadow-sm cursor-pointer dest-card"
+						onclick="window.location.href='destination.html'">
+						<img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&h=250&fit=crop"
+							class="card-img-top" alt="Paris">
+						<div class="card-body">
+							<h5 class="card-title">Paris, France</h5>
+							<p class="card-text text-muted">The City of Light with iconic landmarks and world-class
+								cuisine.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-4">
+					<div class="card border-0 shadow-sm cursor-pointer dest-card"
+						onclick="window.location.href='destination.html'">
+						<img src="img/p12.jpg" class="card-img-top" alt="Bali">
+						<div class="card-body">
+							<h5 class="card-title">Bali, Indonesia</h5>
+							<p class="card-text text-muted">Tropical paradise with stunning beaches and ancient temples.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-4">
+					<div class="card border-0 shadow-sm cursor-pointer dest-card"
+						onclick="window.location.href='destination.html'">
+						<img src="https://images.unsplash.com/photo-1540959375944-7049f642e9b5?w=400&h=250&fit=crop"
+							class="card-img-top" alt="Tokyo">
+						<div class="card-body">
+							<h5 class="card-title">Tokyo, Japan</h5>
+							<p class="card-text text-muted">Modern metropolis blending tradition with cutting-edge
+								technology.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-center mt-4">
+				<a href="destination.html" class="btn btn-primary btn-lg">
+					<i class="bi bi-globe me-2"></i>View All Destinations
+				</a>
+			</div>
+		</section>
+
+		<section id="bookings" class="mb-5">
+			<div class="text-center mb-5">
+				<h2 class="display-5 fw-bold mb-3">&#128202; </h2>
+				<p class="lead text-muted">View and manage your travel reservations</p>
+			</div>
+			<div class="card shadow-sm">
+				<div class="card-body">
+					<div id="bookingsList" class="list-group list-group-flush"></div>
+				</div>
+			</div>
+		</section>
+
+		<section id="about" class="mb-5 py-5 bg-primary bg-opacity-10 rounded-3">
+			<div class="row align-items-center">
+				<div class="col-12 col-lg-6 mb-4 mb-lg-0">
+					<img src="https://images.unsplash.com/photo-1488399128101-cffdd0d28b34?w=500&h=400&fit=crop"
+						alt="About Us" class="img-fluid rounded-3">
+				</div>
+				<div class="col-12 col-lg-6 ps-lg-4">
+					<h2 class="display-6 fw-bold mb-4">About Trip Planner</h2>
+					<p class="lead">We are dedicated to creating memorable travel experiences that last a lifetime. With
+						over a decade of expertise in the tourism industry, we design perfect itineraries tailored to
+						your preferences.</p>
+					<ul class="list-unstyled mt-4">
+						<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Expert Travel
+								Consultants</strong> with worldwide destination knowledge</li>
+						<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Competitive
+								Pricing</strong> with best rates guaranteed</li>
+						<li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>24/7 Customer
+								Support</strong> at your service</li>
+						<li><i class="bi bi-check-circle-fill text-success me-2"></i><strong>Flexible Packages</strong>
+							customized for your needs</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section id="contact" class="mb-5 py-5 bg-dark bg-opacity-5 rounded-3">
+			<div class="text-center mb-5">
+				<h2 class="display-5 fw-bold mb-3">Get in Touch</h2>
+				<p class="lead text-muted">We'd love to help you plan your perfect trip</p>
+			</div>
+			<div class="row g-4">
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card border-0 shadow-sm text-center">
+						<div class="card-body">
+							<i class="bi bi-envelope-fill text-primary" style="font-size: 2rem;"></i>
+							<h5 class="card-title mt-3">Email</h5>
+							<p class="card-text"><a href="mailto:support@tripplanner.example"
+									class="text-decoration-none">support@tripplanner.example</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card border-0 shadow-sm text-center">
+						<div class="card-body">
+							<i class="bi bi-telephone-fill text-success" style="font-size: 2rem;"></i>
+							<h5 class="card-title mt-3">Phone</h5>
+							<p class="card-text"><a href="tel:+1234567890" class="text-decoration-none">+1 (234)
+									567-890</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card border-0 shadow-sm text-center">
+						<div class="card-body">
+							<i class="bi bi-geo-alt-fill text-danger" style="font-size: 2rem;"></i>
+							<h5 class="card-title mt-3">Address</h5>
+							<p class="card-text">123 Travel Street<br>Adventure City, AC 12345</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="card border-0 shadow-sm text-center">
+						<div class="card-body">
+							<i class="bi bi-clock-fill text-warning" style="font-size: 2rem;"></i>
+							<h5 class="card-title mt-3">Hours</h5>
+							<p class="card-text">Mon-Fri: 9AM-6PM<br>Sat-Sun: 10AM-4PM</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		</div>
+	</main>
+
+	<footer class="bg-dark text-white mt-5 py-5">
+		<div class="container">
+			<div class="row g-4">
+				<div class="col-12 col-md-4">
+					<h5 class="fw-bold mb-3">✈️ Trip Planner</h5>
+					<p class="text-muted">Making travel dreams come true with personalized packages and exceptional
+						service.</p>
+				</div>
+				<div class="col-12 col-md-4">
+					<h5 class="fw-bold mb-3">Quick Links</h5>
+					<ul class="list-unstyled">
+						<li><a href="#packages" class="text-muted text-decoration-none">Packages</a></li>
+						<li><a href="destination.html" class="text-muted text-decoration-none">Destinations</a></li>
+						<li><a href="#about" class="text-muted text-decoration-none">About</a></li>
+						<li><a href="#contact" class="text-muted text-decoration-none">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-12 col-md-4">
+					<h5 class="fw-bold mb-3">Follow Us</h5>
+					<div class="d-flex gap-2">
+						<a href="#" class="text-primary"><i class="bi bi-facebook" style="font-size: 1.5rem;"></i></a>
+						<a href="#" class="text-info"><i class="bi bi-twitter" style="font-size: 1.5rem;"></i></a>
+						<a href="#" class="text-danger"><i class="bi bi-instagram" style="font-size: 1.5rem;"></i></a>
+						<a href="#" class="text-warning"><i class="bi bi-youtube" style="font-size: 1.5rem;"></i></a>
+					</div>
+				</div>
+			</div>
+			<hr class="bg-secondary">
+			<div class="text-center text-muted">
+				<p>&copy; 2024 Trip Planner. All rights reserved.</p>
+			</div>
+		</div>
+	</footer>
+	<!-- Booking Form Modal -->
+	<div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="bookingModalLabel">Complete Your Booking</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="bookingForm">
+						<input type="hidden" id="packageName" name="packageName">
+						<input type="hidden" id="packagePrice" name="packagePrice">
+
+						<div class="mb-3">
+							<label class="form-label fw-bold">Package Selected</label>
+							<input type="text" class="form-control" id="displayPackage" disabled>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label fw-bold">Price per Person</label>
+							<input type="text" class="form-control" id="displayPrice" disabled>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label fw-bold">Full Name</label>
+								<input type="text" class="form-control" id="bookerName" required>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label class="form-label fw-bold">Email</label>
+								<input type="email" class="form-control" id="bookerEmail" required>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label fw-bold">Phone Number</label>
+								<input type="tel" class="form-control" id="bookerPhone" required
+									placeholder="10 digit number">
+							</div>
+							<div class="col-md-6 mb-3">
+								<label class="form-label fw-bold">Number of Persons</label>
+								<input type="number" class="form-control" id="numberOfPersons" min="1" max="10"
+									value="1" required>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label class="form-label fw-bold">Travel Date</label>
+								<input type="date" class="form-control" id="travelDate" required>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label class="form-label fw-bold">Total Price</label>
+								<input type="text" class="form-control" id="totalPrice" disabled>
+							</div>
+						</div>
+
+						<div class="mb-3">
+							<label class="form-label fw-bold">Special Requests</label>
+							<textarea class="form-control" id="specialRequests" rows="3"
+								placeholder="Any special dietary needs, preferences, etc."></textarea>
+						</div>
+
+						<div class="form-check mb-3">
+							<input class="form-check-input" type="checkbox" id="agreeTerms" required>
+							<label class="form-check-label" for="agreeTerms">
+								I agree to the terms and conditions
+							</label>
+						</div>
+
+						<div class="d-flex gap-2">
+							<button type="submit" class="btn btn-success btn-lg flex-grow-1">Confirm Booking</button>
+							<button type="button" class="btn btn-secondary btn-lg"
+								data-bs-dismiss="modal">Cancel</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Auth Modal -->
+	<div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="authModalLabel">Login / Sign Up</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul class="nav nav-tabs mb-3" id="authTabs" role="tablist">
+						<li class="nav-item" role="presentation"><button class="nav-link active" id="login-tab"
+								data-bs-toggle="tab" data-bs-target="#loginTab" type="button" role="tab">Login</button>
+						</li>
+						<li class="nav-item" role="presentation"><button class="nav-link" id="signup-tab"
+								data-bs-toggle="tab" data-bs-target="#signupTab" type="button" role="tab">Sign
+								Up</button></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane fade show active" id="loginTab" role="tabpanel">
+							<form id="loginForm">
+								<div class="mb-3"><label class="form-label">Email</label><input type="email"
+										class="form-control" id="loginEmail" required></div>
+								<div class="mb-3"><label class="form-label">Password</label><input type="password"
+										class="form-control" id="loginPassword" required></div>
+								<div class="d-flex justify-content-end"><button class="btn btn-primary"
+										type="submit">Login</button></div>
+							</form>
+						</div>
+						<div class="tab-pane fade" id="signupTab" role="tabpanel">
+							<form id="signupForm">
+								<div class="mb-3"><label class="form-label">Name</label><input type="text"
+										class="form-control" id="signupName" required></div>
+								<div class="mb-3"><label class="form-label">Email</label><input type="email"
+										class="form-control" id="signupEmail" required></div>
+								<div class="mb-3"><label class="form-label">Password</label><input type="password"
+										class="form-control" id="signupPassword" required></div>
+								<div class="d-flex justify-content-end"><button class="btn btn-primary"
+										type="submit">Sign Up</button></div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<div id="toastContainer" class="position-fixed top-0 end-0 p-3" style="z-index:10800;"></div>
+	<script src="js/script.js"></script>
+</body>
+
+</html>

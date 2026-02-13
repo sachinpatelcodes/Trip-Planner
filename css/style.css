@@ -1,0 +1,458 @@
+:root{
+	--clr-900: darkslategray;
+	--clr-800: darkblue;
+	--clr-600: steelblue;
+	--clr-400: lightsteelblue;
+	--clr-100: whitesmoke;
+	--muted: white;
+}
+
+/* Professional navbar and layout styles for Trip Planner */
+body {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	background: whitesmoke;
+	color: darkslategray;
+	font-size: 16px;
+}
+
+/* Booking Modal Styles */
+.modal-header {
+	background: linear-gradient(135deg, steelblue, cornflowerblue);
+	color: white;
+}
+
+.modal-header .btn-close {
+	filter: brightness(0) invert(1);
+}
+
+.modal-body label {
+	color: darkslategray;
+	font-size: 15px;
+	margin-bottom: 8px;
+}
+
+.modal-body .form-control,
+.modal-body .form-select {
+	border-color: lightsteelblue;
+	font-size: 15px;
+}
+
+.modal-body .form-control:focus,
+.modal-body .form-select:focus {
+	border-color: cornflowerblue;
+	box-shadow: 0 0 0 0.2rem rgba(100, 149, 237, 0.25);
+}
+
+.modal-body .form-control:disabled {
+	background-color: whitesmoke;
+	color: darkslategray;
+}
+
+.modal-footer {
+	gap: 10px;
+}
+
+.navbar {
+	background: white !important;
+	padding: 16px 0;
+}
+
+.navbar-brand img {
+	width: 36px;
+	height: 36px;
+}
+
+.navbar .nav-link {
+	color: var(--clr-900) !important;
+	margin-right: 6px;
+	font-weight: 600;
+	font-size: 16px;
+}
+
+.navbar .nav-link:hover { color: cornflowerblue !important; }
+
+.navbar .btn-outline-primary {
+	border-width: 2px;
+	color: cornflowerblue;
+	border-color: cornflowerblue;
+	font-size: 14px;
+}
+
+.navbar .btn-primary { 
+	background: cornflowerblue; 
+	border-color: cornflowerblue;
+	font-size: 14px;
+}
+
+main h2 {
+	font-weight: 700;
+	margin-bottom: 12px;
+	color: var(--clr-900);
+	margin-top: 32px;
+	font-size: 32px;
+}
+
+.card {
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+	height: 250px;
+	object-fit: cover;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background: linear-gradient(90deg, lightsteelblue, whitesmoke);
+}
+
+#bookingsList .list-group-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 15px;
+	border-color: lightgray;
+}
+
+.badge-status {
+	padding: 6px 10px;
+	border-radius: 8px;
+	font-size: 13px;
+}
+
+/* Toast custom look */
+.toast-custom {
+	min-width: 260px;
+	border-radius: 10px;
+	color: white;
+	font-size: 15px;
+}
+.toast-custom.bg-success { background: linear-gradient(90deg, green, lightgreen); }
+.toast-custom.bg-danger { background: linear-gradient(90deg, crimson, orangered); }
+.toast-custom .toast-body { font-weight: 600; }
+
+/* Hero Section Carousel Styles */
+.hero-section {
+	width: 100%;
+	height: 600px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	position: relative;
+}
+
+#heroCarousel {
+	height: 100%;
+}
+
+.carousel-inner {
+	height: 100%;
+}
+
+.carousel-item {
+	height: 100%;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+.carousel-item.active {
+	display: flex;
+}
+
+.carousel-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 1;
+}
+
+.hero-content {
+	text-align: center;
+	color: white;
+	z-index: 5;
+	max-width: 800px;
+	padding: 48px 32px;
+	position: relative;
+}
+
+.hero-content h1 {
+	text-shadow: 2px 2px 8px black;
+	margin-bottom: 20px;
+	line-height: 1.3;
+	color: white;
+}
+
+.hero-content p {
+	text-shadow: 1px 1px 4px black;
+	color: white;
+}
+
+.hero-content .btn {
+	font-weight: 600;
+	transition: all 0.3s ease;
+	display: inline-block;
+}
+
+.hero-content .btn:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-indicators {
+	bottom: 30px;
+	z-index: 10;
+}
+
+.carousel-indicators button {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background-color: lightgray;
+	border: 2px solid white;
+	transition: all 0.3s ease;
+	margin: 0 8px;
+}
+
+.carousel-indicators button.active {
+	background-color: white;
+	width: 32px;
+	border-radius: 12px;
+	border-color: white;
+}
+
+.carousel-indicators button:hover {
+	background-color: white;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+	width: 50px;
+	height: 50px;
+	top: 50%;
+	transform: translateY(-50%);
+	opacity: 0.7;
+	transition: all 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+	opacity: 1;
+}
+
+/* Package Card Hover Effects - Scalable & Responsive */
+.package-card {
+	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	cursor: pointer;
+	overflow: hidden;
+	border: none;
+}
+
+.package-card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.package-card .card-img-top {
+	transition: transform 0.5s ease;
+	overflow: hidden;
+}
+
+.package-card:hover .card-img-top {
+	transform: scale(1.1);
+}
+
+.package-card .card-body {
+	background: white;
+	position: relative;
+	z-index: 2;
+	transition: background-color 0.3s ease;
+}
+
+.package-card:hover .card-body {
+	background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+}
+
+.package-card .card-title {
+	transition: color 0.3s ease;
+}
+
+.package-card:hover .card-title {
+	color: cornflowerblue;
+}
+
+.package-card .btn-book {
+	transition: all 0.3s ease;
+}
+
+.package-card:hover .btn-book {
+	transform: translateY(-2px);
+	box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+}
+
+/* Destination Card Hover Effects - Scalable & Responsive */
+.dest-card {
+	transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	cursor: pointer;
+	overflow: hidden;
+	border: none;
+}
+
+.dest-card:hover {
+	transform: translateY(-10px) scale(1.02);
+	box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.dest-card .card-img-top {
+	transition: transform 0.5s ease;
+}
+
+.dest-card:hover .card-img-top {
+	transform: scale(1.15);
+}
+
+.dest-card .card-title {
+	transition: color 0.3s ease;
+}
+
+.dest-card:hover .card-title {
+	color: cornflowerblue;
+}
+
+
+
+/* Responsive Styles */
+@media (max-width: 767px) {
+	.navbar .btn-outline-primary { margin-top: 8px; }
+	
+	.hero-section {
+		height: 400px;
+		margin-bottom: 32px;
+	}
+	
+	.hero-content h1 {
+		font-size: 28px;
+	}
+	
+	.hero-content p {
+		font-size: 14px;
+	}
+	
+	.hero-content .btn {
+		padding: 8px 20px;
+		font-size: 14px;
+	}
+
+	/* Package Cards Mobile - Responsive Hover */
+	.package-card:hover {
+		transform: scale(1.02);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+	}
+	
+	.package-card .card-img-top {
+		height: 200px;
+	}
+	
+	.package-card:hover .card-img-top {
+		transform: scale(1.05);
+	}
+	
+	.card-title {
+		font-size: 1.1rem;
+	}
+	
+	.card-text {
+		font-size: 0.9rem;
+	}
+
+	/* Responsive Modal */
+	.modal-dialog {
+		margin: 8px;
+		max-width: 100%;
+	}
+
+	.modal-body {
+		padding: 15px;
+	}
+
+	.modal-body .row {
+		margin-right: -7.5px;
+		margin-left: -7.5px;
+	}
+
+	.modal-body .col-md-6 {
+		padding-right: 7.5px;
+		padding-left: 7.5px;
+	}
+
+	.modal-body .form-control,
+	.modal-body textarea {
+		font-size: 16px;
+	}
+
+	.modal footer {
+		flex-direction: column;
+	}
+
+	.modal-footer .btn {
+		width: 100%;
+	}
+	
+	/* Destination Cards Mobile */
+	.dest-card:hover {
+		transform: translateY(-5px) scale(1.01);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+	}
+	
+	.dest-card:hover .card-img-top {
+		transform: scale(1.08);
+	}
+	
+	/* Touch-friendly active states */
+	.package-card:active,
+	.dest-card:active {
+		transform: scale(0.98);
+	}
+	
+	/* Container padding for mobile */
+	.container.py-5 {
+		padding-top: 2rem !important;
+		padding-bottom: 2rem !important;
+	}
+	
+	section {
+		margin-bottom: 2rem !important;
+	}
+}
+
+/* Tablet Responsive */
+@media (min-width: 768px) and (max-width: 991px) {
+	.package-card:hover {
+		transform: scale(1.03);
+		box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+	}
+	
+	.package-card .card-img-top {
+		height: 220px;
+	}
+	
+	.package-card:hover .card-img-top {
+		transform: scale(1.08);
+	}
+	
+	.hero-content h1 {
+		font-size: 42px;
+	}
+}
+
+/* Large screens */
+@media (min-width: 992px) {
+	.package-card {
+		margin-bottom: 1rem;
+	}
+}
+

@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinations - Trip Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        /* CSS - Majority styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            color: darkslategray;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, steelblue, cornflowerblue);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: darkslategray;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: darkslategray;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: cornflowerblue;
+        }
+        
+        /* Category Sections */
+        .category-section {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        .category-title {
+            font-size: 32px;
+            color: darkslategray;
+            margin-bottom: 30px;
+            padding-left: 15px;
+            border-left: 4px solid cornflowerblue;
+        }
+        
+        /* Destination Cards Grid */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .destination-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .destination-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .destination-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .destination-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .card-body {
+            padding: 20px;
+            background: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: darkslategray;
+        }
+        
+        .destination-card:hover .card-title {
+            color: cornflowerblue;
+        }
+        
+        .card-text {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-beach { background: #e3f2fd; color: #1976d2; }
+        .badge-mountain { background: #f3e5f5; color: #7b1fa2; }
+        .badge-city { background: #fff3e0; color: #f57c00; }
+        .badge-historical { background: #e8f5e9; color: #388e3c; }
+        .badge-adventure { background: #fce4ec; color: #c2185b; }
+        
+        /* Detail View */
+        .detail-view {
+            display: none;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .detail-view.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .back-btn {
+            background: white;
+            border: 2px solid cornflowerblue;
+            color: cornflowerblue;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: cornflowerblue;
+            color: white;
+        }
+        
+        .detail-header {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .detail-header img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+        }
+        
+        .detail-content {
+            padding: 30px;
+        }
+        
+        .detail-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: darkslategray;
+        }
+        
+        .location-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .detail-description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        /* Info Sections */
+        .info-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .info-section h2 {
+            font-size: 24px;
+            color: darkslategray;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-section h2 i {
+            color: cornflowerblue;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid cornflowerblue;
+        }
+        
+        .info-card h4 {
+            color: darkslategray;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .info-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Attractions List */
+        .attractions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .attraction-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .attraction-item:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+        
+        .attraction-item i {
+            color: cornflowerblue;
+            font-size: 20px;
+            margin-top: 2px;
+        }
+        
+        .attraction-item strong {
+            display: block;
+            color: darkslategray;
+            margin-bottom: 5px;
+        }
+        
+        .attraction-item span {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Quick Facts */
+        .quick-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .fact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .fact-item i {
+            color: cornflowerblue;
+            font-size: 20px;
+        }
+        
+        .fact-item strong {
+            display: block;
+            color: darkslategray;
+            font-size: 14px;
+        }
+        
+        .fact-item span {
+            color: #666;
+            font-size: 13px;
+        }
+        
+        /* Why Famous Section */
+        .why-famous {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .why-famous h2 {
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .why-famous p {
+            line-height: 1.8;
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        
+        .famous-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .famous-point {
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .famous-point i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .famous-point strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .famous-point span {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Footer */
+        footer {
+            background: darkslategray;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .destinations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-header img {
+                height: 250px;
+            }
+            
+            .detail-header h1 {
+                font-size: 28px;
+            }
+        }
+        
+        /* Hidden/Visible utilities */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand"> Trip Planner</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="destination.html" style="color: cornflowerblue;">Destinations</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <h1> Explore Destinations</h1>
+        <p>Discover amazing places and learn why they're world-famous</p>
+    </header>
+
+    <!-- Main Container -->
+    <main>
+        <!-- Destinations Grid View -->
+        <div id="gridView">
+            <!-- Beach Destinations -->
+            <section class="category-section">
+                <h2 class="category-title"> Beach Destinations</h2>
+                <div class="destinations-grid">
+                    <div class="destination-card" onclick="showDestination('goa')">
+                        <img src="img/Goa.png" alt="Goa">
+                        <div class="card-body">
+                            <h5 class="card-title">Goa, India</h5>
+                            <p class="card-text">Pristine beaches, water sports, and vibrant nightlife</p>
+                            <span class="badge badge-beach">Beach</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card" onclick="showDestination('bali')">
+                        <img src="img/Bali.jpg" alt="Bali">
+                        <div class="card-body">
+                            <h5 class="card-title">Bali, Indonesia</h5>
+                            <p class="card-text">Luxury resorts, temples, and rice terraces</p>
+                            <span class="badge badge-beach">Tropical</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card" onclick="showDestination('andaman')">
+                        <img src="img/Andman.jpg" alt="Andaman">
+                        <div class="card-body">
+                            <h5 class="card-title">Andaman Islands</h5>
+                            <p class="card-text">Scuba diving, coral reefs, and white sandy beaches</p>
+                            <span class="badge badge-beach">Island</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card" onclick="showDestination('thailand')">
+                        <img src="img/Thaileand.jpg" alt="Thailand">
+                        <div class="card-body">
+                            <h5 class="card-title">Thailand</h5>
+                            <p class="card-text">Island hopping in Phuket and Bangkok temples</p>
+                            <span class="badge badge-beach">Popular</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mountain Destinations -->
+            <section class="category-section">
+                <h2 class="category-title"> Mountain Destinations</h2>
+                <div class="destinations-grid">
+                    <div class="destination-card" onclick="showDestination('ladakh')">
+                        <img src="img/ladhakh.jpg" alt="Ladakh">
+                        <div class="card-body">
+                            <h5 class="card-title">Ladakh, India</h5>
+                            <p class="card-text">Pangong Lake, Buddhist monasteries, and mountain views</p>
+                            <span class="badge badge-mountain">Adventure</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card" onclick="showDestination('darjeeling')">
+                        <img src="img/Darjilling.jpg" alt="Darjeeling">
+                        <div class="card-body">
+                            <h5 class="card-title">Darjeeling, India</h5>
+                            <p class="card-text">Tea gardens, toy train, and Kanchenjunga views</p>
+                            <span class="badge badge-mountain">Nature</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card" onclick="showDestination('switzerland')">
+                        <img src="img/switzerland.jpg" alt="Switzerland">
+                        <div class="card-body">
+                            <h5 class="card-title">Switzerland</h5>
+                            <p class="card-text">Swiss Alps, scenic trains, and Interlaken adventures</p>
+                            <span class="badge badge-mountain">Luxury</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- City Destinations -->
+            <section class="category-section">
+                <h2 class="category-title"> City Destinations</h2>
+                <div class="destinations-grid">
+                    <div class="destination-card" onclick="showDestination('delhi')">
+                        <img src="img/Tajmahel.png" alt="Delhi">
+                        <div class="card-body">
+                            <h5 class="card-title">Delhi & Agra, India</h5>
+                            <p class="card-text">Taj Mahal, Red Fort, and historical monuments</p>
+                            <span class="badge badge-city">Heritage</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card" onclick="showDestination('jaipur')">
+                        <img src="img/raj.png.jpg" alt="Jaipur">
+                        <div class="card-body">
+                            <h5 class="card-title">Jaipur, India</h5>
+                            <p class="card-text">Pink City, Hawa Mahal, and royal palaces</p>
+                            <span class="badge badge-city">Culture</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card" onclick="showDestination('paris')">
+                        <img src="img/paris.jpg" alt="Paris">
+                        <div class="card-body">
+                            <h5 class="card-title">Paris, France</h5>
+                            <p class="card-text">Eiffel Tower, Louvre, and romantic charm</p>
+                            <span class="badge badge-city">Romance</span>
+                        </div>
+                    </div>
+                    
+                    <div class="destination-card" onclick="showDestination('dubai')">
+                        <img src="img/Dubai.jpg" alt="Dubai">
+                        <div class="card-body">
+                            <h5 class="card-title">Dubai, UAE</h5>
+                            <p class="card-text">Burj Khalifa, desert safari, and luxury shopping</p>
+                            <span class="badge badge-city">Luxury</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Detail View -->
+        <div id="detailView" class="detail-view">
+            <button class="back-btn" onclick="backToGrid()">
+                 Back to Destinations
+            </button>
+            
+            <div id="detailContent">
+                <!-- Content loaded by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Trip Planner. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Destination Data with Detailed Information
+        const destinations = {
+            goa: {
+                name: "Goa, India",
+                image: "img/Goa.png",
+                category: "Beach",
+                location: "West Coast of India",
+                description: "Goa is India's smallest state but packs a massive punch when it comes to tourism. Known as the 'Pearl of the Orient', it offers a unique blend of Indian and Portuguese cultures, stunning beaches, and a laid-back vibe that attracts millions of visitors annually.",
+                whyFamous: "Goa is world-famous for its pristine beaches stretching over 100 kilometers along the Arabian Sea. It's the ultimate party destination in India with legendary nightlife, beach shacks, and music festivals. The state preserves its Portuguese colonial heritage through beautiful churches, architecture, and cuisine.",
+                whyPopular: "Beach lovers flock to Goa for water sports like parasailing, jet-skiing, and windsurfing. The vibrant flea markets, ancient forts like Aguada and Chapora, and the UNESCO-listed Basilica of Bom Jesus make it culturally rich. Goan cuisine, especially seafood and vindaloo, is internationally acclaimed.",
+                bestTime: "November to February",
+                idealDuration: "5-7 Days",
+                famousFor: ["Beaches", "Nightlife", "Water Sports", "Portuguese Heritage", "Seafood Cuisine"],
+                topAttractions: [
+                    { name: "Calangute Beach", desc: "Queen of Beaches - largest and most popular beach" },
+                    { name: "Basilica of Bom Jesus", desc: "UNESCO site holding St. Francis Xavier's remains" },
+                    { name: "Dudhsagar Falls", desc: "Spectacular 4-tiered waterfall in the Western Ghats" },
+                    { name: "Fort Aguada", desc: "17th-century Portuguese fort with lighthouse" },
+                    { name: "Anjuna Flea Market", desc: "Famous Wednesday market for shopping and culture" },
+                    { name: "Chapora Fort", desc: "Iconic fort offering panoramic coastal views" }
+                ],
+                bestThings: [
+                    { name: "Beach Hopping", desc: "Explore 35+ beaches from North to South Goa" },
+                    { name: "Water Sports", desc: "Scuba diving, parasailing, banana boat rides" },
+                    { name: "Nightlife", desc: "Beach parties, clubs, and live music venues" },
+                    { name: "Heritage Walks", desc: "Explore Old Goa's churches and Panaji's Latin Quarter" },
+                    { name: "Cruise on Mandovi", desc: "Sunset river cruises with cultural shows" }
+                ],
+                cuisine: "Goan cuisine is a delightful fusion of Indian and Portuguese flavors. Famous dishes include Fish Curry Rice, Pork Vindaloo, Prawn Balchão, and Bebinca dessert. Seafood is fresh and abundant.",
+                culture: "Goa celebrates unique festivals like Carnival, Shigmo, and the Feast of St. Francis Xavier. The state's susegad (relaxed) lifestyle, folk music, and dance forms like Dekhnni are distinctive."
+            },
+            
+            bali: {
+                name: "Bali, Indonesia",
+                image: "img/Bali.jpg",
+                category: "Beach",
+                location: "Indonesia - Island of Gods",
+                description: "Bali is an Indonesian paradise known for its forested volcanic mountains, iconic rice paddies, beaches, and coral reefs. The island is home to religious sites such as cliffside Uluwatu Temple and is renowned for its yoga and meditation retreats.",
+                whyFamous: "Bali is famous worldwide as a tropical paradise offering luxury at affordable prices. The island's unique Hindu culture, visible in thousands of temples, daily offerings, and traditional ceremonies, creates a spiritual atmosphere. Its stunning rice terraces at Tegallalang are iconic.",
+                whyPopular: "Travelers love Bali for its diverse experiences - from surfing world-class waves at Uluwatu to exploring art galleries in Ubud. The island offers luxurious private villas with infinity pools, traditional Balinese spas, vibrant beach clubs in Seminyak, and spiritual experiences at ancient temples.",
+                bestTime: "April to October",
+                idealDuration: "6-8 Days",
+                famousFor: ["Rice Terraces", "Temples", "Beaches", "Yoga Retreats", "Luxury Villas"],
+                topAttractions: [
+                    { name: "Uluwatu Temple", desc: "Ancient sea temple perched on 70m high cliff" },
+                    { name: "Tegallalang Rice Terraces", desc: "Iconic cascading rice paddies near Ubud" },
+                    { name: "Sacred Monkey Forest", desc: "Sanctuary with 700+ macaques in Ubud" },
+                    { name: "Tanah Lot Temple", desc: "Temple on a rock formation in the sea" },
+                    { name: "Mount Batur", desc: "Active volcano popular for sunrise trekking" },
+                    { name: "Tirta Empul Temple", desc: "Holy spring water temple for purification" }
+                ],
+                bestThings: [
+                    { name: "Sunrise Trekking", desc: "Hike Mount Batur for spectacular sunrise views" },
+                    { name: "Surfing", desc: "World-class waves at Uluwatu, Kuta, and Canggu" },
+                    { name: "Yoga & Wellness", desc: "Retreats in Ubud and wellness treatments" },
+                    { name: "Traditional Dance", desc: "Watch Kecak fire dance at Uluwatu" },
+                    { name: "Island Hopping", desc: "Visit Nusa Penida, Gili Islands" }
+                ],
+                cuisine: "Balinese cuisine features Babi Guling (suckling pig), Bebek Betutu (slow-cooked duck), Lawar (traditional mix), and Nasi Goreng. The island also offers excellent international cuisine and health food cafes.",
+                culture: "Bali practices a unique form of Hinduism with daily offerings (canang sari), temple ceremonies, and festivals like Nyepi (Day of Silence). Traditional arts include wood carving, painting, silverwork, and dance performances."
+            },
+            
+            andaman: {
+                name: "Andaman Islands",
+                image: "img/Andman.jpg",
+                category: "Beach",
+                location: "Bay of Bengal, India",
+                description: "The Andaman and Nicobar Islands are an archipelago in the Bay of Bengal, known for their pristine beaches, crystal-clear turquoise waters, and rich marine biodiversity. These islands offer a perfect tropical escape with untouched natural beauty.",
+                whyFamous: "Andaman is famous for having some of Asia's most beautiful and unspoiled beaches, particularly Radhanagar Beach on Havelock Island, rated as one of the world's best beaches. The islands are renowned for exceptional scuba diving and snorkeling due to coral reefs and diverse marine life.",
+                whyPopular: "Adventure seekers love Andaman for underwater activities like scuba diving, sea walking, and snorkeling at Elephant Beach. History enthusiasts visit the Cellular Jail National Memorial. The islands offer a digital detox with limited connectivity and pristine natural surroundings.",
+                bestTime: "October to May",
+                idealDuration: "5-7 Days",
+                famousFor: ["Radhanagar Beach", "Scuba Diving", "Cellular Jail", "Tribal Culture", "Coral Reefs"],
+                topAttractions: [
+                    { name: "Radhanagar Beach", desc: "Asia's best beach with powdery white sand" },
+                    { name: "Cellular Jail", desc: "Historic colonial prison with light and sound show" },
+                    { name: "Havelock Island", desc: "Largest island with stunning beaches" },
+                    { name: "Ross Island", desc: "Former British administrative headquarters ruins" },
+                    { name: "Neil Island", desc: "Serene island famous for coral reefs" },
+                    { name: "Baratang Island", desc: "Mangrove forests and limestone caves" }
+                ],
+                bestThings: [
+                    { name: "Scuba Diving", desc: "Explore vibrant coral reefs and marine life" },
+                    { name: "Sea Walking", desc: "Walk on the ocean floor with helmet diving" },
+                    { name: "Island Hopping", desc: "Visit multiple islands by ferry" },
+                    { name: "Trekking to Madhuban", desc: "Elephant safari through forests" },
+                    { name: "Mangrove Safari", desc: "Boat ride through dense mangroves" }
+                ],
+                cuisine: "Andaman cuisine features fresh seafood including fish, crabs, and lobsters. Popular dishes are Fish Curry, Coconut Prawn Curry, and Amritsari Kulcha. The islands also offer Bengali and South Indian influences.",
+                culture: "The islands are home to indigenous tribes like the Jarawa and Sentinelese (protected). The population is a mix of Bengali, Tamil, and Nicobarese communities. The Light and Sound Show at Cellular Jail narrates India's freedom struggle."
+            },
+            
+            thailand: {
+                name: "Thailand",
+                image: "img/Thaileand.jpg",
+                category: "Beach",
+                location: "Southeast Asia",
+                description: "Thailand, known as the 'Land of Smiles', is Southeast Asia's most visited country. It offers a perfect blend of vibrant cities, ancient temples, tropical islands, and world-famous street food, making it a favorite among travelers worldwide.",
+                whyFamous: "Thailand is famous for its magnificent Buddhist temples like Wat Arun and Wat Pho, pristine tropical islands like Phuket and Phi Phi, and legendary hospitality. Bangkok's Grand Palace and the ancient city of Ayutthaya showcase the country's rich history.",
+                whyPopular: "Travelers flock to Thailand for affordable luxury, from beach resorts to spa treatments. The street food scene is world-renowned, with dishes like Pad Thai and Tom Yum Goong. Full Moon Parties on Koh Phangan and island hopping in the Andaman Sea are major attractions.",
+                bestTime: "November to April",
+                idealDuration: "7-10 Days",
+                famousFor: ["Temples", "Thai Massage", "Street Food", "Full Moon Party", "Floating Markets"],
+                topAttractions: [
+                    { name: "Grand Palace", desc: "Bangkok's most famous landmark and temple complex" },
+                    { name: "Phi Phi Islands", desc: "Stunning limestone cliffs and Maya Bay" },
+                    { name: "Wat Arun", desc: "Temple of Dawn on Chao Phraya River" },
+                    { name: "Chiang Mai Old City", desc: "Ancient temples and night bazaar" },
+                    { name: "Ayutthaya", desc: "UNESCO World Heritage ancient capital" },
+                    { name: "Floating Markets", desc: "Damnoen Saduak and Amphawa markets" }
+                ],
+                bestThings: [
+                    { name: "Island Hopping", desc: "Explore Phuket, Krabi, and Phi Phi Islands" },
+                    { name: "Thai Massage", desc: "Authentic traditional massage experiences" },
+                    { name: "Street Food Tour", desc: "Taste world-famous Thai cuisine" },
+                    { name: "Temple Visits", desc: "Explore 40,000+ Buddhist temples" },
+                    { name: "Elephant Sanctuaries", desc: "Ethical encounters with elephants" }
+                ],
+                cuisine: "Thai cuisine is world-famous for its balance of sweet, sour, salty, and spicy flavors. Must-try dishes include Pad Thai, Tom Yum Goong, Green Curry, Som Tam (papaya salad), and Mango Sticky Rice.",
+                culture: "Thai culture emphasizes respect, hospitality (sanuk), and Buddhism. The Wai greeting, traditional Thai dance, Muay Thai boxing, and festivals like Songkran (Thai New Year) and Loy Krathong are integral to Thai identity."
+            },
+            
+            ladakh: {
+                name: "Ladakh, India",
+                image: "img/ladhakh.jpg",
+                category: "Mountain",
+                location: "Northern India - Trans-Himalayas",
+                description: "Ladakh, known as 'The Land of High Passes', is a region in the Indian Himalayas characterized by barren beauty, Buddhist monasteries, and pristine high-altitude lakes. It's a high-altitude desert that offers otherworldly landscapes and unique cultural experiences.",
+                whyFamous: "Ladakh is famous for its dramatic landscapes featuring stark mountains, deep valleys, and crystal-clear high-altitude lakes like Pangong Tso. The region's Tibetan Buddhist culture, ancient monasteries perched on cliffs, and the world's highest motorable roads attract adventure seekers and spiritual travelers alike.",
+                whyPopular: "Adventure enthusiasts love Ladakh for road trips on the Manali-Leh highway, biking expeditions, and trekking routes. The unique culture, colorful festivals like Hemis, and the chance to experience life in the world's highest settlements make it unforgettable. The magnetic hill and lunar landscapes are mesmerizing.",
+                bestTime: "May to September",
+                idealDuration: "7-9 Days",
+                famousFor: ["Pangong Lake", "Buddhist Monasteries", "High Altitude Passes", "Biking Routes", "Stargazing"],
+                topAttractions: [
+                    { name: "Pangong Tso", desc: "Famous 134km long lake changing colors" },
+                    { name: "Nubra Valley", desc: "Valley of Flowers with double-humped camels" },
+                    { name: "Thiksey Monastery", desc: "Mini Potala with 15m tall Buddha statue" },
+                    { name: "Khardung La", desc: "One of world's highest motorable passes" },
+                    { name: "Magnetic Hill", desc: "Gravity-defying optical illusion" },
+                    { name: "Lamayuru Monastery", desc: "Moonland landscapes and ancient gompa" }
+                ],
+                bestThings: [
+                    { name: "Road Trip to Leh", desc: "Epic journey through high mountain passes" },
+                    { name: "Camping at Pangong", desc: "Stay in lakeside camps under stars" },
+                    { name: "Monastery Visits", desc: "Hemis, Thiksey, Diskit monasteries" },
+                    { name: "Camel Safari", desc: "Ride double-humped Bactrian camels" },
+                    { name: "River Rafting", desc: "Zanskar river rafting adventure" }
+                ],
+                cuisine: "Ladakhi cuisine includes Thukpa (noodle soup), Momos, Skyu (pasta), and Butter Tea. Due to harsh climate, foods are hearty and warming. Tibetan and Kashmiri influences are prominent.",
+                culture: "Ladakh follows Tibetan Buddhism with colorful festivals like Hemis, Losar, and Ladakh Festival. Prayer flags, stupas, and monasteries dot the landscape. The region is home to unique wildlife including snow leopards and Himalayan blue sheep."
+            },
+            
+            darjeeling: {
+                name: "Darjeeling, India",
+                image: "img/Darjilling.jpg",
+                category: "Mountain",
+                location: "West Bengal, India - Eastern Himalayas",
+                description: "Darjeeling is a charming hill station in the Eastern Himalayas, famous worldwide for its tea industry, toy train, and spectacular views of the world's third-highest peak, Kanchenjunga. The town exudes colonial charm with its British-era architecture.",
+                whyFamous: "Darjeeling is world-famous for producing the 'Champagne of Teas' - Darjeeling tea, prized globally for its unique flavor. The Darjeeling Himalayan Railway, a UNESCO World Heritage toy train, and the breathtaking sunrise over Kanchenjunga from Tiger Hill make it iconic.",
+                whyPopular: "Tea enthusiasts visit the lush tea estates to witness tea processing. Nature lovers enjoy the cool climate, mountain views, and trekking routes to Sandakphu. The vibrant Tibetan and Nepali culture, colorful monasteries, and momos attract cultural explorers.",
+                bestTime: "March to May, September to November",
+                idealDuration: "4-5 Days",
+                famousFor: ["Darjeeling Tea", "Toy Train", "Kanchenjunga Views", "Colonial Architecture", "Momo"],
+                topAttractions: [
+                    { name: "Tiger Hill", desc: "Sunrise views over Kanchenjunga and Everest" },
+                    { name: "Darjeeling Himalayan Railway", desc: "UNESCO heritage toy train ride" },
+                    { name: "Happy Valley Tea Estate", desc: "Working tea garden and factory" },
+                    { name: "Batasia Loop", desc: "Spiral railway with war memorial" },
+                    { name: "Padmaja Naidu Zoo", desc: "High-altitude zoo with snow leopards" },
+                    { name: "Ghoom Monastery", desc: "Oldest Tibetan Buddhist monastery" }
+                ],
+                bestThings: [
+                    { name: "Tea Tasting", desc: "Visit tea estates and taste varieties" },
+                    { name: "Toy Train Ride", desc: "UNESCO heritage steam train journey" },
+                    { name: "Sunrise at Tiger Hill", desc: "Witness the golden Kanchenjunga" },
+                    { name: "Trekking to Sandakphu", desc: "Trek to highest point in West Bengal" },
+                    { name: "Mall Road Shopping", desc: "Woolens, tea, and handicrafts" }
+                ],
+                cuisine: "Darjeeling cuisine is influenced by Nepali, Tibetan, and Bengali cultures. Famous foods include Momos, Thukpa, Aloo Dum, Sel Roti, and authentic Darjeeling tea. Bakeries offer excellent pastries and cakes.",
+                culture: "The culture is a mix of Tibetan Buddhism and Nepali Hinduism. Tibetan refugees run handicraft centers and monasteries. The town celebrates Losar, Dasain, and the Darjeeling Carnival. Traditional dress includes colorful chuba and bakhu."
+            },
+            
+            switzerland: {
+                name: "Switzerland",
+                image: "img/switzerland.jpg",
+                category: "Mountain",
+                location: "Central Europe - The Alps",
+                description: "Switzerland is a mountainous Central European country, home to numerous lakes, villages, and the high peaks of the Alps. It's known for its stunning natural beauty, precision engineering, luxury watches, chocolate, and exceptional quality of life.",
+                whyFamous: "Switzerland is famous for its breathtaking Alpine scenery, world-class skiing resorts like Zermatt and St. Moritz, and the iconic Matterhorn peak. The country is renowned for Swiss chocolate, cheese (especially fondue), luxury watches, and impeccable punctuality of its trains.",
+                whyPopular: "Travelers flock to Switzerland for scenic train journeys like the Glacier Express and Bernina Express. Adventure seekers enjoy skiing, hiking, and paragliding. Cities like Zurich, Geneva, and Lucerne offer museums, shopping, and lakeside charm. The country is exceptionally clean and safe.",
+                bestTime: "Year-round",
+                idealDuration: "7-10 Days",
+                famousFor: ["Swiss Alps", "Scenic Trains", "Chocolate & Cheese", "Luxury Watches", "Banking"],
+                topAttractions: [
+                    { name: "Matterhorn", desc: "Iconic pyramid-shaped peak at Zermatt" },
+                    { name: "Jungfraujoch", desc: "Top of Europe - highest railway station" },
+                    { name: "Lake Geneva", desc: "Beautiful lake with Mont Blanc views" },
+                    { name: "Chapel Bridge", desc: "Historic wooden bridge in Lucerne" },
+                    { name: "Rhine Falls", desc: "Europe's largest plain waterfall" },
+                    { name: "Interlaken", desc: "Adventure capital between two lakes" }
+                ],
+                bestThings: [
+                    { name: "Scenic Train Rides", desc: "Glacier Express, Bernina Express routes" },
+                    { name: "Skiing", desc: "World-class resorts in Zermatt, St. Moritz" },
+                    { name: "Chocolate Tours", desc: "Visit Maison Cailler, Lindt museums" },
+                    { name: "Lake Cruises", desc: "Boat rides on pristine Alpine lakes" },
+                    { name: "Mountain Excursions", desc: "Mount Pilatus, Titlis cable cars" }
+                ],
+                cuisine: "Swiss cuisine features Cheese Fondue, Raclette, Rösti (potato dish), and Chocolate. Regional specialties include Zürcher Geschnetzeltes and Basler Läckerli. The country has excellent wines and bakeries.",
+                culture: "Switzerland has four national languages (German, French, Italian, Romansh) reflecting its diversity. The country maintains neutrality and hosts international organizations. Precision, punctuality, and quality are cultural values. Traditional festivals include Fasnacht (carnival)."
+            },
+            
+            delhi: {
+                name: "Delhi & Agra, India",
+                image: "img/Tajmahel.png",
+                category: "City",
+                location: "North India - Capital Region",
+                description: "Delhi and Agra together showcase India's rich Mughal heritage and modern vibrancy. While Delhi is India's capital with a mix of ancient and modern attractions, Agra houses the iconic Taj Mahal, one of the Seven Wonders of the World.",
+                whyFamous: "This region is world-famous for the Taj Mahal, a UNESCO World Heritage site and symbol of eternal love. Delhi's Red Fort, Qutub Minar, and Humayun's Tomb represent Mughal architectural brilliance. The area preserves India's historical narrative from ancient to colonial times.",
+                whyPopular: "History enthusiasts explore the magnificent monuments and museums. Food lovers enjoy Delhi's street food at Chandni Chowk and paranthe wali gali. Agra offers Mughal cuisine and marble handicrafts. The vibrant bazaars and cultural shows make it a complete experience.",
+                bestTime: "October to March",
+                idealDuration: "3-4 Days",
+                famousFor: ["Taj Mahal", "Red Fort", "Mughal Architecture", "Street Food", "Historical Monuments"],
+                topAttractions: [
+                    { name: "Taj Mahal", desc: "UNESCO wonder, white marble mausoleum" },
+                    { name: "Red Fort", desc: "UNESCO site, Mughal emperor's residence" },
+                    { name: "Qutub Minar", desc: "World's tallest brick minaret" },
+                    { name: "India Gate", desc: "War memorial and national monument" },
+                    { name: "Humayun's Tomb", desc: "UNESCO site, inspiration for Taj Mahal" },
+                    { name: "Agra Fort", desc: "Massive red sandstone fort complex" }
+                ],
+                bestThings: [
+                    { name: "Taj Mahal Sunrise", desc: "Watch the monument change colors" },
+                    { name: "Old Delhi Food Walk", desc: "Chandni Chowk street food tour" },
+                    { name: "Heritage Walks", desc: "Explore Mehrauli and Shahjahanabad" },
+                    { name: "Sound & Light Show", desc: "Red Fort evening show" },
+                    { name: "Shopping", desc: "Handicrafts at Dilli Haat and Janpath" }
+                ],
+                cuisine: "The region offers Mughlai cuisine including Kebabs, Biryani, and Nihari. Delhi is famous for street food like Chaat, Paranthas, Chole Bhature, and Butter Chicken. Agra's Petha sweet is renowned.",
+                culture: "The culture is a blend of Hindu, Mughal, and British influences. Delhi hosts major festivals like Diwali, Eid, and Republic Day parade. Kathak dance, qawwali music, and Urdu poetry thrive here."
+            },
+            
+            jaipur: {
+                name: "Jaipur, India",
+                image: "img/raj.png.jpg",
+                category: "City",
+                location: "Rajasthan, India - Pink City",
+                description: "Jaipur, the capital of Rajasthan, is known as the 'Pink City' due to the distinctive color of its buildings. It's a royal city of magnificent forts, palaces, bazaars, and rich Rajasthani culture that offers a glimpse into India's regal past.",
+                whyFamous: "Jaipur is famous for its stunning pink-hued architecture, including the iconic Hawa Mahal (Palace of Winds) and City Palace. The Amer Fort, a UNESCO World Heritage site, showcases Rajput and Mughal architectural fusion. The city is renowned for precious gemstone jewelry and block-printed textiles.",
+                whyPopular: "Travelers love exploring the royal palaces and forts that transport them to the era of maharajas. The vibrant bazaars offer handicrafts, jewelry, textiles, and blue pottery. The city hosts colorful festivals like Teej and the Jaipur Literature Festival. Elephant rides at Amer Fort are popular.",
+                bestTime: "October to March",
+                idealDuration: "3-4 Days",
+                famousFor: ["Pink City", "Hawa Mahal", "Amer Fort", "Jewelry", "Rajasthani Culture"],
+                topAttractions: [
+                    { name: "Amer Fort", desc: "Majestic hilltop fort with Sheesh Mahal" },
+                    { name: "Hawa Mahal", desc: "Palace of 953 windows for royal women" },
+                    { name: "City Palace", desc: "Royal residence with museums" },
+                    { name: "Jantar Mantar", desc: "UNESCO astronomical observatory" },
+                    { name: "Jal Mahal", desc: "Water palace in Man Sagar Lake" },
+                    { name: "Nahargarh Fort", desc: "Hilltop fort with city views" }
+                ],
+                bestThings: [
+                    { name: "Elephant Ride", desc: "Ride elephants up to Amer Fort" },
+                    { name: "Shopping", desc: "Johari Bazaar for jewelry and textiles" },
+                    { name: "Hot Air Balloon", desc: "Aerial view of forts and palaces" },
+                    { name: "Heritage Walk", desc: "Explore old city and bazaars" },
+                    { name: "Traditional Dinner", desc: "Rajasthani thali with folk dance" }
+                ],
+                cuisine: "Jaipur offers rich Rajasthani cuisine including Dal Baati Churma, Laal Maas (red meat curry), Gatte ki Sabzi, and Ghevar sweet. The famous Lassiwala on MI Road serves thick lassi.",
+                culture: "Rajasthani culture shines through Ghoomar and Kalbeliya dances, traditional music, and colorful turbans. The city celebrates Gangaur and Teej festivals with great enthusiasm. Block printing, blue pottery, and gemstone cutting are traditional arts."
+            },
+            
+            paris: {
+                name: "Paris, France",
+                image: "img/paris.jpg",
+                category: "City",
+                location: "France - Capital City",
+                description: "Paris, the 'City of Light' and capital of France, is one of the world's most iconic cities. Known for its art, fashion, gastronomy, and culture, Paris has inspired artists, writers, and lovers for centuries with its timeless beauty.",
+                whyFamous: "Paris is world-famous for the Eiffel Tower, one of the most recognizable landmarks globally. The Louvre Museum houses the Mona Lisa and other priceless art. The city's café culture, fashion houses on Champs-Élysées, and romantic atmosphere along the Seine make it legendary.",
+                whyPopular: "Art lovers flock to world-class museums like the Louvre, Musée d'Orsay, and Centre Pompidou. Fashion enthusiasts explore luxury boutiques and department stores like Galeries Lafayette. Food lovers enjoy French cuisine at bistros, patisseries, and Michelin-starred restaurants.",
+                bestTime: "April to June, September to November",
+                idealDuration: "5-7 Days",
+                famousFor: ["Eiffel Tower", "Louvre Museum", "Fashion", "French Cuisine", "Romance"],
+                topAttractions: [
+                    { name: "Eiffel Tower", desc: "Iconic iron lattice tower and symbol of Paris" },
+                    { name: "Louvre Museum", desc: "World's largest art museum, home to Mona Lisa" },
+                    { name: "Notre-Dame Cathedral", desc: "Gothic masterpiece on Île de la Cité" },
+                    { name: "Arc de Triomphe", desc: "Triumphal arch at Champs-Élysées" },
+                    { name: "Sacré-Cœur", desc: "White basilica with panoramic Paris views" },
+                    { name: "Versailles Palace", desc: "Opulent royal château and gardens" }
+                ],
+                bestThings: [
+                    { name: "Seine River Cruise", desc: "Evening boat tour past monuments" },
+                    { name: "Museum Hopping", desc: "Louvre, Musée d'Orsay, Pompidou" },
+                    { name: "Montmartre Walk", desc: "Artistic neighborhood and Sacré-Cœur" },
+                    { name: "Café Culture", desc: "People-watch at traditional cafés" },
+                    { name: "Shopping", desc: "Champs-Élysées and Galeries Lafayette" }
+                ],
+                cuisine: "Paris is a culinary capital famous for Croissants, Baguettes, Escargot, Coq au Vin, and Crème Brûlée. Neighborhood bistros, patisseries like Ladurée, and open-air markets offer endless gastronomic delights.",
+                culture: "Parisian culture emphasizes art, intellectualism, and joie de vivre. The city hosts Paris Fashion Week, the French Open, and Bastille Day celebrations. Literature, philosophy, and cinema are deeply valued."
+            },
+            
+            dubai: {
+                name: "Dubai, UAE",
+                image: "img/Dubai.jpg",
+                category: "City",
+                location: "United Arab Emirates",
+                description: "Dubai is a city and emirate in the United Arab Emirates known for luxury shopping, ultramodern architecture, and a lively nightlife scene. It's a city of superlatives with the world's tallest building, largest mall, and most luxurious hotels.",
+                whyFamous: "Dubai is famous for the Burj Khalifa, the world's tallest building at 828 meters. The Palm Jumeirah, an artificial island shaped like a palm tree, and the Burj Al Arab, a sail-shaped luxury hotel, are architectural marvels. The city transforms desert into a futuristic metropolis.",
+                whyPopular: "Shopping enthusiasts visit the Dubai Mall and traditional gold and spice souks. Adventure seekers enjoy desert safaris with dune bashing and camel rides. Families love theme parks like IMG Worlds and Dubai Parks. The city offers luxury experiences from fine dining to helicopter tours.",
+                bestTime: "November to March",
+                idealDuration: "5-7 Days",
+                famousFor: ["Burj Khalifa", "Luxury Shopping", "Desert Safaris", "Artificial Islands", "Gold Souks"],
+                topAttractions: [
+                    { name: "Burj Khalifa", desc: "World's tallest building with observation deck" },
+                    { name: "Dubai Mall", desc: "World's largest shopping and entertainment destination" },
+                    { name: "Palm Jumeirah", desc: "Iconic artificial palm-shaped island" },
+                    { name: "Burj Al Arab", desc: "Sail-shaped luxury 7-star hotel" },
+                    { name: "Dubai Fountain", desc: "World's largest choreographed fountain" },
+                    { name: "Gold Souk", desc: "Traditional market with gold and spices" }
+                ],
+                bestThings: [
+                    { name: "Desert Safari", desc: "Dune bashing, camel rides, and BBQ dinner" },
+                    { name: "Burj Khalifa Visit", desc: "Views from the 148th floor" },
+                    { name: "Shopping", desc: "Dubai Mall, Mall of the Emirates, souks" },
+                    { name: "Dhow Cruise", desc: "Traditional boat dinner on Dubai Creek" },
+                    { name: "Theme Parks", desc: "IMG Worlds, Dubai Parks and Resorts" }
+                ],
+                cuisine: "Dubai offers diverse cuisine from Emirati dishes like Shawarma and Falafel to international fine dining. Must-try local foods include Camel milk ice cream, dates, and Arabic coffee. The city has restaurants by celebrity chefs.",
+                culture: "Dubai blends traditional Bedouin culture with modern cosmopolitanism. Islamic traditions are respected while being tolerant. The Dubai Shopping Festival and National Day celebrations are major events. Falconry and camel racing preserve heritage."
+            }
+        };
+
+        // Show destination details
+        function showDestination(destId) {
+            const dest = destinations[destId];
+            if (!dest) return;
+
+            const detailContent = document.getElementById('detailContent');
+            
+            const attractionsHtml = dest.topAttractions.map(attr => `
+                <div class="attraction-item">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    <div>
+                        <strong>${attr.name}</strong>
+                        <span>${attr.desc}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            const bestThingsHtml = dest.bestThings.map(thing => `
+                <div class="attraction-item">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <div>
+                        <strong>${thing.name}</strong>
+                        <span>${thing.desc}</span>
+                    </div>
+                </div>
+            `).join('');
+            
+            const famousForHtml = dest.famousFor.map(item => `
+                <span class="badge badge-${dest.category.toLowerCase() === 'beach' ? 'beach' : dest.category.toLowerCase() === 'mountain' ? 'mountain' : 'city'}" style="margin: 3px; padding: 8px 15px; font-size: 13px;">${item}</span>
+            `).join('');
+
+            detailContent.innerHTML = `
+                <div class="detail-header">
+                    <img src="${dest.image}" alt="${dest.name}">
+                    <div class="detail-content">
+                        <h1>${dest.name}</h1>
+                        <div class="location-tag">
+                            <i class="bi bi-geo-alt-fill" style="color: cornflowerblue;"></i>
+                            <span>${dest.location}</span>
+                        </div>
+                        <p class="detail-description">${dest.description}</p>
+                        <div style="margin-top: 15px;">
+                            ${famousForHtml}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="why-famous">
+                    <h2><i class="bi bi-star-fill"></i> Why is ${dest.name.split(',')[0]} Famous?</h2>
+                    <p>${dest.whyFamous}</p>
+                    <div class="famous-points">
+                        <div class="famous-point">
+                            <i class="bi bi-trophy"></i>
+                            <strong>World Recognition</strong>
+                            <span>Globally renowned destination</span>
+                        </div>
+                        <div class="famous-point">
+                            <i class="bi bi-camera-fill"></i>
+                            <strong>Iconic Landmarks</strong>
+                            <span>UNESCO sites and monuments</span>
+                        </div>
+                        <div class="famous-point">
+                            <i class="bi bi-heart-fill"></i>
+                            <strong>Unique Culture</strong>
+                            <span>Rich traditions and heritage</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2><i class="bi bi-fire"></i> Why is it So Popular?</h2>
+                    <p style="line-height: 1.8; color: #555; margin-bottom: 20px;">${dest.whyPopular}</p>
+                    
+                    <div class="quick-facts">
+                        <div class="fact-item">
+                            <i class="bi bi-calendar-event"></i>
+                            <div>
+                                <strong>Best Time to Visit</strong>
+                                <span>${dest.bestTime}</span>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <i class="bi bi-clock"></i>
+                            <div>
+                                <strong>Ideal Duration</strong>
+                                <span>${dest.idealDuration}</span>
+                            </div>
+                        </div>
+                        <div class="fact-item">
+                            <i class="bi bi-compass"></i>
+                            <div>
+                                <strong>Category</strong>
+                                <span>${dest.category}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2><i class="bi bi-geo-alt"></i> Top Attractions</h2>
+                    <div class="attractions-list">
+                        ${attractionsHtml}
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2><i class="bi bi-hand-thumbs-up"></i> Best Things to Do</h2>
+                    <div class="attractions-list">
+                        ${bestThingsHtml}
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4><i class="bi bi-egg-fried"></i> Cuisine</h4>
+                        <p>${dest.cuisine}</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="bi bi-palette"></i> Culture</h4>
+                        <p>${dest.culture}</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('gridView').style.display = 'none';
+            document.getElementById('detailView').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Back to grid view
+        function backToGrid() {
+            document.getElementById('gridView').style.display = 'block';
+            document.getElementById('detailView').classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
